@@ -3,22 +3,22 @@
 use Test::Most tests => 1;
 
 use Renard::Incunabula::Common::Setup;
-use Renard::Punchcard::Backend::Kiwisolver::Solver;
-use aliased 'Renard::Punchcard::Backend::Kiwisolver::Symbolic' => 'Symbolic';
+use Renard::Punchcard::Backend::Kiwisolver::Context;
 
 use lib 't/lib';
 
 subtest "Test grid constraints" => fun() {
 	my ($n_rows, $n_cols) = (3, 2);
-	my $solver = Renard::Punchcard::Backend::Kiwisolver::Solver->new;
+	my $context = Renard::Punchcard::Backend::Kiwisolver::Context->new;
+	my $solver = $context->solver;
 	my $items;
 	my $item_iter = 0;
 	my @constraints;
 	for my $row (0..$n_rows-1) {
 		for my $col (0..$n_cols-1) {
 			$items->[$row][$col] = {
-				x => Symbolic->new( name => "${item_iter}.x" ),
-				y => Symbolic->new( name => "${item_iter}.y" ),
+				x => $context->new_variable( name => "${item_iter}.x" ),
+				y => $context->new_variable( name => "${item_iter}.y" ),
 			};
 			$item_iter++;
 		}
@@ -30,8 +30,8 @@ subtest "Test grid constraints" => fun() {
 	@{ $items->[2][0] }{qw( size color )} = ( [100, 100], 'cyan' );
 	@{ $items->[2][1] }{qw( size color )} = ( [100, 100], 'brown' );
 
-	my @rows_constraints = map { Symbolic->new( name => "row.$_" ) } (0..$n_rows-1);
-	my @cols_constraints = map { Symbolic->new( name => "col.$_" ) } (0..$n_cols-1);
+	my @rows_constraints = map { $context->new_variable( name => "row.$_" ) } (0..$n_rows-1);
+	my @cols_constraints = map { $context->new_variable( name => "col.$_" ) } (0..$n_cols-1);
 	push @constraints, $_ >= 0 for @rows_constraints;
 	push @constraints, $_ >= 0 for @cols_constraints;
 
