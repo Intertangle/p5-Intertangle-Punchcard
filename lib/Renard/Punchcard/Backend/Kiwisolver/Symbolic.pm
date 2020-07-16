@@ -17,7 +17,6 @@ has _delegate => (
 		| InstanceOf['Renard::API::Kiwisolver::Expression']
 		| InstanceOf['Renard::API::Kiwisolver::Constraint']
 		),
-	handles => [ qw(value) ],
 	default => method() {
 		Renard::API::Kiwisolver::Variable->new;
 	},
@@ -44,6 +43,14 @@ method _delegate_op($other, $inv, $meth) {
 	);
 
 	$return_wrapper;
+}
+
+method value($value = undef) {
+	if( defined $value ) {
+		$self->_delegate->setValue( $value );
+	} else {
+		$self->_delegate->value;
+	}
 }
 
 with qw(Renard::Punchcard::Data::Role::Variable);
