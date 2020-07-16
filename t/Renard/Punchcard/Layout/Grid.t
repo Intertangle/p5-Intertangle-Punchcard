@@ -7,28 +7,8 @@ use Renard::Punchcard::Backend::Kiwisolver::Context;
 
 use lib 't/lib';
 
-subtest "Test grid constraints" => fun() {
-	my ($n_rows, $n_cols) = (3, 2);
-	my $context = Renard::Punchcard::Backend::Kiwisolver::Context->new;
-	my $solver = $context->solver;
-	my $items;
-	my $item_iter = 0;
+fun create_constraints( $context, $n_rows, $n_cols, $items ) {
 	my @constraints;
-	for my $row (0..$n_rows-1) {
-		for my $col (0..$n_cols-1) {
-			$items->[$row][$col] = {
-				x => $context->new_variable( name => "${item_iter}.x" ),
-				y => $context->new_variable( name => "${item_iter}.y" ),
-			};
-			$item_iter++;
-		}
-	}
-	@{ $items->[0][0] }{qw( size color )} = ( [100, 200], 'blue' );
-	@{ $items->[0][1] }{qw( size color )} = ( [100, 100], 'green' );
-	@{ $items->[1][0] }{qw( size color )} = ( [300, 100], 'red' );
-	@{ $items->[1][1] }{qw( size color )} = ( [100, 400], 'yellow' );
-	@{ $items->[2][0] }{qw( size color )} = ( [100, 100], 'cyan' );
-	@{ $items->[2][1] }{qw( size color )} = ( [100, 100], 'brown' );
 
 	my @rows_constraints = map { $context->new_variable( name => "row.$_" ) } (0..$n_rows-1);
 	my @cols_constraints = map { $context->new_variable( name => "col.$_" ) } (0..$n_cols-1);
@@ -55,7 +35,40 @@ subtest "Test grid constraints" => fun() {
 		}
 	}
 
-	for my $constraint (@constraints) {
+	\@constraints;
+}
+
+fun create_items($context, $n_rows, $n_cols) {
+	my $items;
+	my $item_iter = 0;
+	for my $row (0..$n_rows-1) {
+		for my $col (0..$n_cols-1) {
+			$items->[$row][$col] = {
+				x => $context->new_variable( name => "${item_iter}.x" ),
+				y => $context->new_variable( name => "${item_iter}.y" ),
+			};
+			$item_iter++;
+		}
+	}
+	@{ $items->[0][0] }{qw( size color )} = ( [100, 200], 'blue' );
+	@{ $items->[0][1] }{qw( size color )} = ( [100, 100], 'green' );
+	@{ $items->[1][0] }{qw( size color )} = ( [300, 100], 'red' );
+	@{ $items->[1][1] }{qw( size color )} = ( [100, 400], 'yellow' );
+	@{ $items->[2][0] }{qw( size color )} = ( [100, 100], 'cyan' );
+	@{ $items->[2][1] }{qw( size color )} = ( [100, 100], 'brown' );
+
+	$items;
+}
+
+subtest "Test grid constraints" => fun() {
+	my ($n_rows, $n_cols) = (3, 2);
+	my $context = Renard::Punchcard::Backend::Kiwisolver::Context->new;
+	my $solver = $context->solver;
+
+	my $items = create_items($context, $n_rows, $n_cols);
+	my $constraints = create_constraints( $context, $n_rows, $n_cols, $items );
+
+	for my $constraint (@$constraints) {
 		$solver->add_constraint($constraint);
 	}
 	$solver->add_edit_variable($items->[0][0]{x}, Renard::API::Kiwisolver::Strength::STRONG );
