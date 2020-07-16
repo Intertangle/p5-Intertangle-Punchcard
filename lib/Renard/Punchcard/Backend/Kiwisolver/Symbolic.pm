@@ -34,6 +34,10 @@ method _delegate_op($other, $inv, $meth) {
 	die "Operator $meth not available" unless defined $op;
 	my $return =  $op->($self->_delegate, defined $other && ref $other ? $other->_delegate : $other , $inv );
 
+	if( $meth eq '""') {
+		return $return;
+	}
+
 	my $return_wrapper;
 	$return_wrapper = Renard::Punchcard::Backend::Kiwisolver::Symbolic->new(
 		_delegate => $return,
