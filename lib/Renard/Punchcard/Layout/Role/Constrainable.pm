@@ -4,9 +4,8 @@ package Renard::Punchcard::Layout::Role::Constrainable;
 
 use Mu;
 
-has [ qw(top bottom left right) ] => ();
+has [ qw(top bottom left right) ] => ( is => 'ro' );
 
-has [ qw(width height) ] => ();
+has [ qw(width height) ] => ( is => 'ro' );
 
 1;
-
