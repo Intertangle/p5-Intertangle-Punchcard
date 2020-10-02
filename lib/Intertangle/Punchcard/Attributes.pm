@@ -1,9 +1,9 @@
 use Renard::Incunabula::Common::Setup;
-package Renard::Punchcard::Attributes;
+package Intertangle::Punchcard::Attributes;
 # ABSTRACT: «TODO»
 
 use Moo::_Utils qw(_install_coderef);
-use Renard::Punchcard::Backend::Kiwisolver::Symbolic;
+use Intertangle::Punchcard::Backend::Kiwisolver::Symbolic;
 
 sub import {
 	my $target = caller;
@@ -13,7 +13,7 @@ sub import {
 		$has->($name,
 			is => 'lazy',
 			builder => sub {
-				Renard::Punchcard::Backend::Kiwisolver::Symbolic->new( name => $name );
+				Intertangle::Punchcard::Backend::Kiwisolver::Symbolic->new( name => $name );
 			},
 			@args,
 		);

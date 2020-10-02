@@ -3,7 +3,7 @@
 use Test::Most tests => 1;
 
 use Renard::Incunabula::Common::Setup;
-use Renard::Punchcard::Backend::Kiwisolver::Context;
+use Intertangle::Punchcard::Backend::Kiwisolver::Context;
 
 use lib 't/lib';
 
@@ -62,7 +62,7 @@ fun create_items($context, $n_rows, $n_cols) {
 
 subtest "Test grid constraints" => fun() {
 	my ($n_rows, $n_cols) = (3, 2);
-	my $context = Renard::Punchcard::Backend::Kiwisolver::Context->new;
+	my $context = Intertangle::Punchcard::Backend::Kiwisolver::Context->new;
 	my $solver = $context->solver;
 
 	my $items = create_items($context, $n_rows, $n_cols);
@@ -71,8 +71,8 @@ subtest "Test grid constraints" => fun() {
 	for my $constraint (@$constraints) {
 		$solver->add_constraint($constraint);
 	}
-	$solver->add_edit_variable($items->[0][0]{x}, Renard::API::Kiwisolver::Strength::STRONG );
-	$solver->add_edit_variable($items->[0][0]{y}, Renard::API::Kiwisolver::Strength::STRONG );
+	$solver->add_edit_variable($items->[0][0]{x}, Intertangle::API::Kiwisolver::Strength::STRONG );
+	$solver->add_edit_variable($items->[0][0]{y}, Intertangle::API::Kiwisolver::Strength::STRONG );
 	$solver->suggest_value($items->[0][0]{x}, 0);
 	$solver->suggest_value($items->[0][0]{y}, 0);
 	$solver->update;

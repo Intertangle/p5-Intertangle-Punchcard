@@ -1,16 +1,16 @@
 use Renard::Incunabula::Common::Setup;
-package Renard::Punchcard::Backend::Kiwisolver::Solver;
+package Intertangle::Punchcard::Backend::Kiwisolver::Solver;
 # ABSTRACT: Solver wrapper for Kiwisolver
 
 use Mu;
-use Renard::API::Kiwisolver;
+use Intertangle::API::Kiwisolver;
 use Renard::Incunabula::Common::Types qw(InstanceOf);
 
 has _delegate => (
 	is => 'ro',
-	isa => InstanceOf['Renard::API::Kiwisolver::Solver'],
+	isa => InstanceOf['Intertangle::API::Kiwisolver::Solver'],
 	default => method() {
-		Renard::API::Kiwisolver::Solver->new;
+		Intertangle::API::Kiwisolver::Solver->new;
 	},
 );
 

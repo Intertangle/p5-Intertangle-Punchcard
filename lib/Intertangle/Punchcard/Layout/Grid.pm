@@ -1,5 +1,5 @@
 use Renard::Incunabula::Common::Setup;
-package Renard::Punchcard::Layout::Grid;
+package Intertangle::Punchcard::Layout::Grid;
 # ABSTRACT: Grid layout
 
 use Mu;

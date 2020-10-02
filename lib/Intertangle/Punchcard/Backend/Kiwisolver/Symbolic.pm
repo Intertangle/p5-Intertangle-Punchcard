@@ -1,9 +1,9 @@
 use Renard::Incunabula::Common::Setup;
-package Renard::Punchcard::Backend::Kiwisolver::Symbolic;
+package Intertangle::Punchcard::Backend::Kiwisolver::Symbolic;
 # ABSTRACT: Kiwisovler variable
 
 use Mu;
-use Renard::API::Kiwisolver;
+use Intertangle::API::Kiwisolver;
 use Renard::Incunabula::Common::Types qw(InstanceOf);
 use overload nomethod => \&_delegate_op;
 
@@ -12,13 +12,13 @@ has name => ( is => 'ro', predicate => 1 );
 has _delegate => (
 	is => 'ro',
 	isa => (
-		InstanceOf['Renard::API::Kiwisolver::Variable']
-		| InstanceOf['Renard::API::Kiwisolver::Term']
-		| InstanceOf['Renard::API::Kiwisolver::Expression']
-		| InstanceOf['Renard::API::Kiwisolver::Constraint']
+		InstanceOf['Intertangle::API::Kiwisolver::Variable']
+		| InstanceOf['Intertangle::API::Kiwisolver::Term']
+		| InstanceOf['Intertangle::API::Kiwisolver::Expression']
+		| InstanceOf['Intertangle::API::Kiwisolver::Constraint']
 		),
 	default => method() {
-		Renard::API::Kiwisolver::Variable->new;
+		Intertangle::API::Kiwisolver::Variable->new;
 	},
 );
 
@@ -38,7 +38,7 @@ method _delegate_op($other, $inv, $meth) {
 	}
 
 	my $return_wrapper;
-	$return_wrapper = Renard::Punchcard::Backend::Kiwisolver::Symbolic->new(
+	$return_wrapper = Intertangle::Punchcard::Backend::Kiwisolver::Symbolic->new(
 		_delegate => $return,
 	);
 
@@ -53,6 +53,6 @@ method value($value = undef) {
 	}
 }
 
-with qw(Renard::Punchcard::Data::Role::Variable);
+with qw(Intertangle::Punchcard::Data::Role::Variable);
 
 1;
