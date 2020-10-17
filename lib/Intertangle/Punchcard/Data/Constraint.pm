@@ -4,10 +4,20 @@ package Intertangle::Punchcard::Data::Constraint;
 
 use Mu;
 
+=method inputs
+
+...
+
+=cut
 method inputs($context) {
 
 }
 
+=method evaluate
+
+...
+
+=cut
 method evaluate($context) {
 
 }

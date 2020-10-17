@@ -1,12 +1,21 @@
 use Renard::Incunabula::Common::Setup;
 package Intertangle::Punchcard::Backend::Kiwisolver::Symbolic;
-# ABSTRACT: Kiwisovler variable
+# ABSTRACT: Kiwisolver variable
 
 use Mu;
 use Intertangle::API::Kiwisolver;
 use Renard::Incunabula::Common::Types qw(InstanceOf);
 use overload nomethod => \&_delegate_op;
 
+=attr name
+
+Name for variable.
+
+=method C<has_name>
+
+Predicate for C<name>.
+
+=cut
 has name => ( is => 'ro', predicate => 1 );
 
 has _delegate => (
@@ -22,6 +31,9 @@ has _delegate => (
 	},
 );
 
+=method BUILD
+
+=cut
 method BUILD() {
 	if( $self->has_name ) {
 		$self->_delegate->setName( $self->name );
@@ -45,6 +57,11 @@ method _delegate_op($other, $inv, $meth) {
 	$return_wrapper;
 }
 
+=method value
+
+Set or get value for variable.
+
+=cut
 method value($value = undef) {
 	if( defined $value ) {
 		$self->_delegate->setValue( $value );

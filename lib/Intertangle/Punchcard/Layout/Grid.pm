@@ -4,6 +4,11 @@ package Intertangle::Punchcard::Layout::Grid;
 
 use Mu;
 
+=method constraints
+
+...
+
+=cut
 method constraints() {
 
 }

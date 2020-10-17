@@ -14,18 +14,38 @@ has _delegate => (
 	},
 );
 
+=method add_constraint
+
+...
+
+=cut
 method add_constraint($constraint) {
 	$self->_delegate->addConstraint($constraint->_delegate);
 }
 
+=method update
+
+...
+
+=cut
 method update() {
 	$self->_delegate->updateVariables;
 }
 
+=method add_edit_variable
+
+...
+
+=cut
 method add_edit_variable($variable, $strength) {
 	$self->_delegate->addEditVariable($variable->_delegate, $strength);
 }
 
+=method suggest_value
+
+...
+
+=cut
 method suggest_value($variable, $value) {
 	$self->_delegate->suggestValue($variable->_delegate, $value);
 }

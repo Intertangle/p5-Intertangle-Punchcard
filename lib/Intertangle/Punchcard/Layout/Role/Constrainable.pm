@@ -4,8 +4,18 @@ package Intertangle::Punchcard::Layout::Role::Constrainable;
 
 use Mu;
 
+=attr top bottom left right
+
+...
+
+=cut
 has [ qw(top bottom left right) ] => ( is => 'ro' );
 
+=attr width height
+
+...
+
+=cut
 has [ qw(width height) ] => ( is => 'ro' );
 
 1;

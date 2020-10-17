@@ -10,6 +10,11 @@ lazy solver => sub {
 	Intertangle::Punchcard::Backend::Kiwisolver::Solver->new
 };
 
+=method new_variable
+
+Helper for creating new symbolic variable.
+
+=cut
 method new_variable(@args) {
 	Intertangle::Punchcard::Backend::Kiwisolver::Symbolic->new( @args );
 }
