@@ -3,7 +3,7 @@ package Intertangle::Punchcard::Backend::Kiwisolver::Symbolic;
 # ABSTRACT: Kiwisolver variable
 
 use Mu;
-use Intertangle::API::Kiwisolver;
+use Graphics::Layout::Kiwisolver;
 use Renard::Incunabula::Common::Types qw(InstanceOf);
 use overload nomethod => \&_delegate_op;
 
@@ -21,13 +21,13 @@ has name => ( is => 'ro', predicate => 1 );
 has _delegate => (
 	is => 'ro',
 	isa => (
-		InstanceOf['Intertangle::API::Kiwisolver::Variable']
-		| InstanceOf['Intertangle::API::Kiwisolver::Term']
-		| InstanceOf['Intertangle::API::Kiwisolver::Expression']
-		| InstanceOf['Intertangle::API::Kiwisolver::Constraint']
+		InstanceOf['Graphics::Layout::Kiwisolver::Variable']
+		| InstanceOf['Graphics::Layout::Kiwisolver::Term']
+		| InstanceOf['Graphics::Layout::Kiwisolver::Expression']
+		| InstanceOf['Graphics::Layout::Kiwisolver::Constraint']
 		),
 	default => method() {
-		Intertangle::API::Kiwisolver::Variable->new;
+		Graphics::Layout::Kiwisolver::Variable->new;
 	},
 );
 

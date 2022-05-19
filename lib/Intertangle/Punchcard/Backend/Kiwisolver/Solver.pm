@@ -3,7 +3,7 @@ package Intertangle::Punchcard::Backend::Kiwisolver::Solver;
 # ABSTRACT: Solver wrapper for Kiwisolver
 
 use Mu;
-use Intertangle::API::Kiwisolver;
+use Graphics::Layout::Kiwisolver;
 use Renard::Incunabula::Common::Types qw(InstanceOf);
 
 has _delegate => (
