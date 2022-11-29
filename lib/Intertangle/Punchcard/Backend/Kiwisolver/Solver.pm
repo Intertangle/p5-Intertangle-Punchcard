@@ -8,9 +8,9 @@ use Renard::Incunabula::Common::Types qw(InstanceOf);
 
 has _delegate => (
 	is => 'ro',
-	isa => InstanceOf['Intertangle::API::Kiwisolver::Solver'],
+	isa => InstanceOf['Graphics::Layout::Kiwisolver::Solver'],
 	default => method() {
-		Intertangle::API::Kiwisolver::Solver->new;
+		Graphics::Layout::Kiwisolver::Solver->new;
 	},
 );
 
